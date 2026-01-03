@@ -307,6 +307,7 @@ fn submitToSq(
     var out_buf: [std.fs.max_path_bytes]u8 = undefined;
     const real_path = try std.fs.cwd().realpath(file_path, &out_buf);
     const file = try std.fs.openFileAbsolute(real_path, .{});
+    defer file.close();
 
     var bytes_remaining = (try file.stat()).size;
     const file_size = bytes_remaining;
